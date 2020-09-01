@@ -4,6 +4,7 @@ namespace LaraDev\Http\Controllers\user;
 
 use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
+use LaraDev\Models\Address;
 use LaraDev\User;
 
 class UserController extends Controller
@@ -31,7 +32,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,7 +43,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -54,7 +55,7 @@ class UserController extends Controller
 
         $userAddress = $user->addressDelivery()->get()->first();
 
-        if($userAddress){
+        if ($userAddress) {
             echo "<h1><b>Endereço do Usuário</b></h1>";
             echo "End: {$userAddress->address}<br>";
             echo "Número: {$userAddress->number}<br>";
@@ -62,13 +63,35 @@ class UserController extends Controller
             echo "Cep: {$userAddress->zipcode}<br>";
             echo "Cidade/Estado: {$userAddress->city} - {$userAddress->state}<br>";
         }
+//////////////////////////////////listar usuario com seu relacionamento//////////////////////////////////////
+        $user = User::with('addressDelivery')->get();
+        dd($user);
 
+/////////////////////////////////////////////criar um usuario com seu endereço////////////////////////////////
+//        $newAddress = new Address([
+//            'address' => 'Rua dos Bobos',
+//            'number' => '0',
+//            'complement' => 'Apto 1234',
+//            'zipcode' => '75075-400',
+//            'city' => 'Anápolis',
+//            'state' => 'GO',
+//        ]);
+//
+//        $newUser = new User([
+//            'name' => 'Gilson Alves de Souza',
+//            'email' => 'gilsonalvesdesouza@hotmail.com',
+//            'password' => bcrypt('1234'),
+//            'level' => 5,
+//        ]);
+//        $newUser->save();
+//          $newUser->addressDelivery()->save($newAddress);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -79,8 +102,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -91,7 +114,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
