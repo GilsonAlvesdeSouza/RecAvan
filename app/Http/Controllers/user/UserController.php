@@ -5,6 +5,7 @@ namespace LaraDev\Http\Controllers\user;
 use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Models\Address;
+use LaraDev\Models\Post;
 use LaraDev\User;
 
 class UserController extends Controller
@@ -63,9 +64,21 @@ class UserController extends Controller
             echo "Cep: {$userAddress->zipcode}<br>";
             echo "Cidade/Estado: {$userAddress->city} - {$userAddress->state}<br>";
         }
+
+        $authorPosts = $user->posts()->get();
+
+        if ($authorPosts) {
+            foreach ($authorPosts as $post) {
+                echo "<h1><b>Artigos</b></h1>";
+                echo "Titulo: {$post->title}<br>";
+                echo "SubTitulo: {$post->subtitle}<br>";
+                echo "Descrição: {$post->description}<br>";
+                echo "<hr>";
+            }
+        }
 //////////////////////////////////listar usuario com seu relacionamento//////////////////////////////////////
-        $user = User::with('addressDelivery')->get();
-        dd($user);
+//        $user = User::with('addressDelivery')->get();
+//        dd($user);
 
 /////////////////////////////////////////////criar um usuario com seu endereço////////////////////////////////
 //        $newAddress = new Address([
@@ -86,6 +99,8 @@ class UserController extends Controller
 //        $newUser->save();
 //          $newUser->addressDelivery()->save($newAddress);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     }
 
     /**

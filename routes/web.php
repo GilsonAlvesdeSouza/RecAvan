@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 Route::resource('users', 'user\UserController');
 Route::resource('addresses', 'address\AddressController');
+Route::resource('posts', 'post\PostController');
