@@ -5,6 +5,7 @@ namespace LaraDev\Http\Controllers\post;
 use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Models\Post;
+use LaraDev\User;
 
 class PostController extends Controller
 {

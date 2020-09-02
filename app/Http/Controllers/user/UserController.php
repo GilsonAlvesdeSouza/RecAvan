@@ -133,7 +133,8 @@ class UserController extends Controller
 //        $newUser->save();
 //          $newUser->addressDelivery()->save($newAddress);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        $users = User::all();
+        dd($users->toJson(JSON_PRETTY_PRINT));
 
     }
 
