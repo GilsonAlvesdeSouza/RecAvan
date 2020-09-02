@@ -1,12 +1,12 @@
 <?php
 
-namespace LaraDev\Http\Controllers\post;
+namespace LaraDev\Http\Controllers\category;
 
 use Illuminate\Http\Request;
 use LaraDev\Http\Controllers\Controller;
-use LaraDev\Models\Post;
+use LaraDev\Models\Category;
 
-class PostController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -47,30 +47,19 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        $category = Category::find($id);
+        echo "<h1><b>Categorias</b></h1>";
+        echo "Titulo: {$category->name}<br>";
 
-        echo "<h1><b>Artigo</b></h1>";
-        echo "Titulo: {$post->title}<br>";
-        echo "SubTitulo: {$post->subtitle}<br>";
-        echo "Descrição: {$post->description}<br>";
+        $posts = $category->posts()->get();
 
-        $autor = $post->author()->get()->first();
-
-        if($autor){
-            echo "<h1><b>Dados do Autor</b></h1>";
-            echo "Nome: {$autor->name}<br>";
-            echo "Email: {$autor->email}";
-        }
-
-        $postCategories = $post->categories()->get();
-
-        if($postCategories){
-
-            foreach ($postCategories as $category) {
-                echo "<h1><b>Categorias</b></h1>";
-            echo "Titulo: {$category->name}<br>";
+        if ($posts){
+            echo "<h1><b>Artigo</b></h1>";
+            foreach ($posts as $post) {
+                echo "Titulo: {$post->title}<br>";
+                echo "SubTitulo: {$post->subtitle}<br>";
+                echo "Descrição: {$post->description}<br><hr>";
             }
-
         }
     }
 

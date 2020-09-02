@@ -76,6 +76,15 @@ class UserController extends Controller
                 echo "<hr>";
             }
         }
+
+        $comments = $user->commentesOnMyPost()->get();
+
+        if($comments){
+            foreach ($comments as $comment) {
+                echo "<h1><b>Comentarios do Usuário</b></h1>";
+                echo "Artigo: {$comment->post}<br>";
+            }
+        }
 //////////////////////////////////listar usuario com seu relacionamento//////////////////////////////////////
 //        $user = User::with('addressDelivery')->get();
 //        dd($user);

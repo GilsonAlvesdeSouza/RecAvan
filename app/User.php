@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use LaraDev\Models\Address;
+use LaraDev\Models\Comment;
 use LaraDev\Models\Post;
 
 class User extends Authenticatable
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class,'author','id');
+    }
+
+    public function commentesOnMyPost()
+    {
+        return $this->hasManyThrough(Comment::class,Post::class,'author','post','id', 'id');
     }
 }
