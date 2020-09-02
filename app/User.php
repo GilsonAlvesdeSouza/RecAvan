@@ -54,4 +54,19 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Comment::class,Post::class,'author','post','id', 'id');
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'item');
+    }
+
+    public function scopeStudents($query)
+    {
+        return $query->where('level', '<=', '5');
+    }
+
+    public function scopeAdms($query)
+    {
+        return $query->where('level', '>', '5');
+    }
 }

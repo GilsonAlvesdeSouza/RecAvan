@@ -77,14 +77,39 @@ class UserController extends Controller
             }
         }
 
-        $comments = $user->commentesOnMyPost()->get();
+//        $comments = $user->commentesOnMyPost()->get();
+//
+//        if ($comments) {
+//            foreach ($comments as $comment) {
+//                echo "<h1><b>Comentarios do Usuário</b></h1>";
+//                echo "Artigo: {$comment->post}<br>";
+//            }
+//        }
 
-        if($comments){
-            foreach ($comments as $comment) {
-                echo "<h1><b>Comentarios do Usuário</b></h1>";
-                echo "Artigo: {$comment->post}<br>";
+//        $user->comments()->create([
+//            'content' => 'Hakuna Matata',
+//        ]);
+
+        $userComments = $user->comments()->get();
+
+        if($userComments){
+            echo "<h1><b>Comentários deste Usuário</b></h1>";
+            foreach ($userComments as $commenst) {
+                echo "Comentário: #{$commenst->id} - {$commenst->content}<br>";
             }
         }
+
+        $students = User::students()->get();
+
+        if($students){
+            echo "<h1><b>Lista de Alunos</b></h1>";
+            foreach ($students as $student) {
+                echo "Nome: {$student->name}<br>";
+                echo "Email: {$student->email}<hr>";
+            }
+        }
+
+
 //////////////////////////////////listar usuario com seu relacionamento//////////////////////////////////////
 //        $user = User::with('addressDelivery')->get();
 //        dd($user);

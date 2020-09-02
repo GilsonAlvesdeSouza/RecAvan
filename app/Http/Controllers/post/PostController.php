@@ -71,11 +71,23 @@ class PostController extends Controller
 
         if ($postCategories) {
 
+            echo "<h1><b>Categorias</b></h1>";
             foreach ($postCategories as $category) {
-                echo "<h1><b>Categorias</b></h1>";
                 echo "Titulo: #{$category->id} - {$category->name}<br>";
             }
+        }
 
+//        $post->comments()->create([
+//            'content' => 'Hakuna Matata',
+//        ]);
+
+        $postComments = $post->comments()->get();
+
+        if($postComments){
+            echo "<h1><b>Comentários deste Artigo</b></h1>";
+            foreach ($postComments as $commenst) {
+                echo "Comentário: #{$commenst->id} - {$commenst->content}<br>";
+            }
         }
     }
 
