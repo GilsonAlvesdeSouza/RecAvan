@@ -49,10 +49,14 @@ class PostController extends Controller
     {
         $post = Post::find($id);
 
+        $post->title = "Testando Atributos";
+        $post->save();
+
         echo "<h1><b>Artigo</b></h1>";
         echo "Titulo: {$post->title}<br>";
         echo "SubTitulo: {$post->subtitle}<br>";
         echo "Descrição: {$post->description}<br>";
+        echo "Data da Criação: {$post->dateFormat}<br>";
 
         $autor = $post->author()->get()->first();
 

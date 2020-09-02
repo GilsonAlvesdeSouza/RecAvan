@@ -25,4 +25,15 @@ class Post extends Model
     {
         return $this->morphMany(Comment::class, 'item');
     }
+
+    public function getDateFormatAttribute()
+    {
+        return date('d/m/Y H:i:s', strtotime($this->created_at));
+    }
+
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = $value;
+        $this->attributes['slug'] = str_slug($value);
+    }
 }
